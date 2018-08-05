@@ -65,7 +65,7 @@ function showManagerChoices() {
         } else if (answers.selection == "Add to Inventory") {
             addInventory();
         } else if (answers.selection == "Add New Product") {
-            console.log("Add new product");
+            addNewProduct();
         } else {
             endConnection();
         }
@@ -209,7 +209,7 @@ function updateProductTable(chosenItem) {
                 {
                     type: "rawlist",
                     name: "action",
-                    message: "Items added. What would you like to do?",
+                    message: "Inventory increased. What would you like to do?",
                     choices: ["Return to home menu","Add more inventory", "Exit"]
                 }
             ]).then(function(answers) {
@@ -226,6 +226,80 @@ function updateProductTable(chosenItem) {
         }
     )
 };//end update product table function
+
+
+function addNewProduct() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "product_name",
+            message: "Please enter a product name"
+        },
+        {
+            type: "rawlist",
+            name: "department_name",
+            message: "Please choose a department for this item",
+            choices: ["Electronics", "Games", "Furniture", "Produce"]
+        },
+        {
+            type: "input",
+            name: "price",
+            message: "Please enter a price for the new product.",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                } else {
+                    console.log('\nPlease input a numeric value.');
+                    return false;
+                }
+            }
+        },
+        {
+            type: "input",
+            name: "stock_quantity",
+            message: "Please enter a quantity of the new item to stock.",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                } else {
+                    console.log('\nPlease input a numeric value.');
+                    return false;
+                }
+            }
+        }
+    ]).then(function(answers) {
+        connection.query("INSERT INTO products SET ?",
+        {
+            product_name: answers.product_name,
+            department_name: answers.department_name,
+            price: answers.price,
+            stock_quantity: answers.stock_quantity,
+            product_sales: 0
+        },
+        function(err, response) {
+            if (err) throw err;
+            inquirer.prompt([
+                {
+                    type: "rawlist",
+                    name: "action",
+                    message: "Product added ot store. What would you like to do?",
+                    choices: ["Return to home menu","Add more products", "Exit"]
+                }
+            ]).then(function(answers) {
+                if (answers.action == "Return to home menu") {
+                    showManagerChoices();
+                } else if (answers.action == "Add more products") {
+                    addNewProduct();
+                } else {
+                    connection.end(function(err) {
+                        if (err) throw err;
+                    });
+                }
+            });
+        }
+    )
+    });
+};
 
 
 //end connection function
