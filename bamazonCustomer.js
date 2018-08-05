@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 });
 
 
-//start program and start MySQL connection
+//start the customer program and start MySQL connection
 
 connection.connect(function (err) {
     if (err) throw err;
@@ -24,7 +24,7 @@ connection.connect(function (err) {
 //Called Functions
 ///////////////////////////////////////
 
-//function provides a welcom screen to Bamazon to display only on initial load
+//function provides a welcome screen to Bamazon to display only on initial load
 function bamazonStart() {
     console.log('---------------------------\nWelcome to Bamazon!\n---------------------------');
     getChoices();
@@ -43,7 +43,7 @@ function getChoices() {
             console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n')
         };
 
-        //prompt user for the item they would like to purchase
+        //prompt user for the item / quantity they would like to purchase
         inquirer.prompt([
             {
                 type: "input",
@@ -64,6 +64,7 @@ function getChoices() {
                 }
             }
         ]).then(function (answers) {
+            //call function to check stock after receivingthe customer's input
             checkStock(response, answers);
         });
 
@@ -84,12 +85,56 @@ function checkStock(response, answers) {
             chosenItem = response[i];
         }
     }
-
+    //ensures that the customer has chosen a valid item
     if (chosenItem.item_id !== 'invalid item') {
-        console.log('Item: ');
-        console.log(chosenItem);
+        if (chosenItem.stock_quantity > answers.quantity) {
+            console.log('Sufficient stock');
+            var total = parseFloat(chosenItem.price) * parseFloat(answers.quantity);
+            chosenItem.stock_quantity = parseFloat(chosenItem.stock_quantity) - parseFloat(answers.quantity);
+            chosenItem.product_sales = parseFloat(chosenItem.product_sales) + total;
+            console.log('You are purchasing ' + answers.quantity + ' ' + chosenItem.product_name + '.');
+            console.log('Your total is: $' +total);
+            updateProductTable(chosenItem);
+            
+        } else {
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'anything',
+                    message: 'Insufficient stock. Please select fewer items, or wait until the stock has been replenished.\nPress enter to continue.\n'
+                }
+            ]).then(function () {
+                getChoices();
+            })
+        }
     } else {
         console.log('You must select a valid item.')
         getChoices();
     }
 }; //end check stock function
+
+//Update product table function
+function updateProductTable(chosenItem) {
+    connection.query(
+        'UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?',
+        [chosenItem.stock_quantity, chosenItem.product_sales, chosenItem.item_id],
+        function(err, response) {
+            if (err) throw err;
+            inquirer.prompt([
+                {
+                    type: "confirm",
+                    name: "continue",
+                    message: "Thank you for your purchase. Would you like to look for more items? (Y/N)"
+                }
+            ]).then(function(answers) {
+                if (answers.continue == true) {
+                    getChoices();
+                } else {
+                    connection.end(function(err) {
+                        if (err) throw err;
+                    });
+                }
+            });
+        }
+    )
+};//end update product table function
