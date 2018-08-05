@@ -1,0 +1,23 @@
+{
+  "name": "bamazon-cli-app",
+  "version": "1.0.0",
+  "description": "This is a command line marketplace app to practice using mysql",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeyvon2434/bamazon-CLI-app.git"
+  },
+  "author": "Joseph Von Edwins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joeyvon2434/bamazon-CLI-app/issues"
+  },
+  "homepage": "https://github.com/joeyvon2434/bamazon-CLI-app#readme",
+  "dependencies": {
+    "inquirer": "^6.0.0",
+    "mysql": "^2.16.0"
+  }
+}
