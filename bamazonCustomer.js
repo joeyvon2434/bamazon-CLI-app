@@ -25,6 +25,7 @@ connection.connect(function (err) {
 ///////////////////////////////////////
 
 //function provides a welcome screen to Bamazon to display only on initial load
+//////////////////////////////
 function bamazonStart() {
     console.log('---------------------------\nWelcome to Bamazon!\n---------------------------');
     getChoices();
@@ -32,6 +33,7 @@ function bamazonStart() {
 
 
 //Function serves as the home for the customer and displays the items they can choose to purchase
+//////////////////////////////
 function getChoices() {
 
     //get list of items from database (data retutrn as an array of objects with each column from the products table as a property)
@@ -40,7 +42,7 @@ function getChoices() {
 
         //display a list of the items with name, price, and quantity
         for (var i = 0; i < response.length; i++) {
-            console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n')
+            console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n');
         };
 
         //prompt user for the item / quantity they would like to purchase
@@ -74,6 +76,7 @@ function getChoices() {
 
 
 //Function checks the stock for the item the user wants to purchase and ensures sufficient quantities are available
+//////////////////////////////
 function checkStock(response, answers) {
     var chosenItem = {
         item_id: 'invalid item'
@@ -114,6 +117,7 @@ function checkStock(response, answers) {
 }; //end check stock function
 
 //Update product table function
+//////////////////////////////
 function updateProductTable(chosenItem) {
     connection.query(
         'UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?',
