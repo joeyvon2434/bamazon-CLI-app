@@ -229,6 +229,11 @@ function updateProductTable(chosenItem) {
 
 
 function addNewProduct() {
+    var results = [];
+                connection.query("SELECT * FROM departments", function(err, response) {
+                    if (err) throw err;
+                    results = response;
+                });
     inquirer.prompt([
         {
             type: "input",
@@ -239,7 +244,16 @@ function addNewProduct() {
             type: "rawlist",
             name: "department_name",
             message: "Please choose a department for this item",
-            choices: ["Electronics", "Games", "Furniture", "Produce"]
+            //choices: ["Electronics", "Games", "Furniture", "Produce"],
+            choices: function() {
+                var choiceArray = [];
+                
+                console.log(results);
+                for (var i = 0 ; i < results.length; i++) {
+                    choiceArray.push(results[i].department_name);
+                }
+                return choiceArray;
+            }
         },
         {
             type: "input",

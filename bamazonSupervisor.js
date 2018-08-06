@@ -34,9 +34,9 @@ function supervisorStart() {
             message: 'What would you like to do?',
             choices: ["View product sales by department", "Create new department", "Exit"]
         }
-    ]).then(function(answers) {
+    ]).then(function (answers) {
         if (answers.action == "View product sales by department") {
-            console.log('sales');
+            viewDepartmentSales();
         } else if (answers.action == "Create new department") {
             newDepartment();
         } else {
@@ -44,6 +44,23 @@ function supervisorStart() {
         }
     });
 };//end supervisor start
+
+//create new department function
+//////////////////////////////
+function viewDepartmentSales() {
+    connection.query("SELECT departments.department_id, departments.department_name, departments.overhead_costs, SUM(products.product_sales) AS Sales FROM departments INNER JOIN products ON departments.department_name = products.department_name GROUP BY departments.department_id",
+        function (err, response) {
+            if (err) throw err;
+
+            for (var i = 0; i < response.length; i++) {
+                console.log("ID: " + response[i].department_id + " || Department: " + response[i].department_name + " || Overhead: $" + response[i].overhead_costs + " || Sales: $" + response[i].Sales + " || Profit: $" + (response[i].Sales - response[i].overhead_costs) + "\n");
+
+            }
+            supervisorStart();
+        });
+
+}; //end department sales function
+
 
 
 //create new department function
@@ -68,25 +85,25 @@ function newDepartment() {
                 }
             }
         }
-    ]).then(function(answers) {
+    ]).then(function (answers) {
         connection.query("INSERT INTO departments SET ?",
-        {
-            department_name: answers.department,
-            overhead_costs: answers.overhead
-        },
-        function(err, response) {
-            if (err) throw err;
-            inquirer.prompt([
-                {
-                    type: 'input',
-                    name: 'action',
-                    message: 'Department created. Please press enter to return to the supervisor menu.'
-                }
-            ]).then(function() {
-                supervisorStart();
-            });
-        }
-    )
+            {
+                department_name: answers.department,
+                overhead_costs: answers.overhead
+            },
+            function (err, response) {
+                if (err) throw err;
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'action',
+                        message: 'Department created. Please press enter to return to the supervisor menu.'
+                    }
+                ]).then(function () {
+                    supervisorStart();
+                });
+            }
+        )
     })
 };
 
