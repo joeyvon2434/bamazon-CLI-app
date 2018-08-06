@@ -1,0 +1,100 @@
+var inquirer = require('inquirer');
+var mysql = require('mysql');
+
+//set up mysql connection
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    port: "8889",
+    password: "root",
+    database: "bamazon"
+});
+
+//start supervisor program and establish connection
+
+connection.connect(function (err) {
+    if (err) throw err;
+    supervisorStart();
+});
+
+
+///////////////////////////////////////
+//Called Functions
+///////////////////////////////////////
+
+//Supervisor menu function
+/////////////////////////////
+function supervisorStart() {
+    console.log("Welcome to the Supervisor Menu.\n");
+    inquirer.prompt([
+        {
+            type: 'rawlist',
+            name: 'action',
+            message: 'What would you like to do?',
+            choices: ["View product sales by department", "Create new department", "Exit"]
+        }
+    ]).then(function(answers) {
+        if (answers.action == "View product sales by department") {
+            console.log('sales');
+        } else if (answers.action == "Create new department") {
+            newDepartment();
+        } else {
+            endConnection();
+        }
+    });
+};//end supervisor start
+
+
+//create new department function
+//////////////////////////////
+function newDepartment() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: 'department',
+            message: "Please input the name of the new department.\n"
+        },
+        {
+            type: 'input',
+            name: 'overhead',
+            message: 'Please input the overhead cost for the department (numeric values only).',
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                } else {
+                    console.log('\nPlease input a numeric value.');
+                    return false;
+                }
+            }
+        }
+    ]).then(function(answers) {
+        connection.query("INSERT INTO departments SET ?",
+        {
+            department_name: answers.department,
+            overhead_costs: answers.overhead
+        },
+        function(err, response) {
+            if (err) throw err;
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'action',
+                    message: 'Department created. Please press enter to return to the supervisor menu.'
+                }
+            ]).then(function() {
+                supervisorStart();
+            });
+        }
+    )
+    })
+};
+
+
+//end connection function
+//////////////////////////////
+function endConnection() {
+    connection.end(function (err) {
+        if (err) throw err;
+    });
+};

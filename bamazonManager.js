@@ -282,7 +282,7 @@ function addNewProduct() {
                 {
                     type: "rawlist",
                     name: "action",
-                    message: "Product added ot store. What would you like to do?",
+                    message: "Product added to store. What would you like to do?",
                     choices: ["Return to home menu","Add more products", "Exit"]
                 }
             ]).then(function(answers) {
