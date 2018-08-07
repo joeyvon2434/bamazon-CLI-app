@@ -8,7 +8,7 @@ Welcome to the Bamazon ReadMe file.
 **Contributors**: Created by Joseph Von Edwins
 
 
-#Getting Started:# 
+# Getting Started:
 1. You will need to clone the GitHub repository to your computer.
 2. Once the repository is cloned, you will need to navigate to the download location on your computer in your favorite command line interface.
 3. You will likely need to update the  server connection information to match your own local server. The set up location is in each file in lines 7 through 11.
@@ -16,10 +16,10 @@ Welcome to the Bamazon ReadMe file.
 5. Start your localhost database connection using MySQL, or any other SQL based database.
 6. You're ready to go!
 
-#Summary:# 
+# Summary: 
 The three files allow the user to act as a customer making purchases, a manager that can monitor inventory and dd products, and a supervisor that can add departments, and look at the performance for each department.
 
-#bamazonCustomer.js#
+# bamazonCustomer.js
 1. In your command line terminal / bash type "node bamazonCustomer.js"
 2. Upon execution you will be led to a screen with a list of products
  ********INSERT IMAGE**********
@@ -32,7 +32,7 @@ The three files allow the user to act as a customer making purchases, a manager 
   ********INSERT IMAGE**********
 
 
-  #bamazonManager.js#
+  # bamazonManager.js
  1. In your command line terminal / bash type "node bamazonManager.js".
  2. You will bw prompted for a password.
  ********INSERT IMAGE**********
@@ -54,7 +54,7 @@ THe user can then choose to return to the home menu, create more products, or ex
 9. "Exit" allows the user to exit the program.
 
 
-#bamazonSupervisor.js
+# bamazonSupervisor.js
 1. In your command line terminal / bash, type "node bamazonSupervisor.js"
 2. A menu will appear asking the user to choose "View product sales by department", "Create new department", or exit.
 ********INSERT IMAGE**********
