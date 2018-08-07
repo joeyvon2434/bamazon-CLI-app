@@ -47,7 +47,7 @@ The three files allow the user to act as a customer making purchases, a manager 
  2. The user will be prompted for a password.
 ![image_4](/images/image_4.png)
  Insert the password (management) and press enter to continue.
- 
+
  3. A menu is presented to the user, where they can make a numeric selection of what they would like to do.
 ![image_5](/images/image_5.png)
 
@@ -82,5 +82,4 @@ The user can then choose to return to the home menu, create more products, or ex
 5. The "Create new department" option allows the user to create a new department. The user will be prompted to input a department name and overhead costs.
 6. The user then sees a message stating that the department was created, and prompting the user to press enter to return to the main menu.
 ![image_12](/images/image_12.png)
-Format: ![image_12](url)
 
