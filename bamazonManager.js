@@ -248,7 +248,7 @@ function addNewProduct() {
             choices: function() {
                 var choiceArray = [];
                 
-                console.log(results);
+                //console.log(results);
                 for (var i = 0 ; i < results.length; i++) {
                     choiceArray.push(results[i].department_name);
                 }
@@ -302,7 +302,7 @@ function addNewProduct() {
             ]).then(function(answers) {
                 if (answers.action == "Return to home menu") {
                     showManagerChoices();
-                } else if (answers.action == "Add more products") {
+                } else if (answers.action == "Create more new products") {
                     addNewProduct();
                 } else {
                     connection.end(function(err) {
