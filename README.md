@@ -22,34 +22,39 @@ The three files allow the user to act as a customer making purchases, a manager 
 # bamazonCustomer.js
 1. In your command line terminal / bash type "node bamazonCustomer.js"
 2. Upon execution you will be led to a screen with a list of products
- ********INSERT IMAGE**********
+![image_1](/images/image_1.png)
+Format: ![image_1](url)
  and prompted to enter the ID of a product you would like to purchase. 
  3. After selecting a product, the user is prompted to input a quantity they would like to purchase.
- ********INSERT IMAGE**********
+ ********INSERT IMAGE 2**********
  4. If sufficient stock is available, the user in prompted with a confirmation of their purchase, and a total price. They are also asked if they would like to shop for more items.
 
+ ********INsert Image 13************
+
  5. If insufficient stock is available, the user is asked to purchase less items and is returned to the home menu.
-  ********INSERT IMAGE**********
+  ********INSERT IMAGE 3**********
+
+  6. Press "control C" to exit at any time
 
 
   # bamazonManager.js
  1. In your command line terminal / bash type "node bamazonManager.js".
  2. You will bw prompted for a password.
- ********INSERT IMAGE**********
+ ********INSERT IMAGE 4**********
  Insert the password (management) and press enter to continue.
  3. A menu is presented to the user, where they can make a numeric selection of what they would like to do.
- ********INSERT IMAGE**********
+ ********INSERT IMAGE 5**********
  4. Choose an option and press enter.
- 5. The "View Products for Sale" option shows the manager the current items for sale in the Bamazon marketplace withat a prompt to exit or return to the home screen.
- ********INSERT IMAGE**********
- 6. THe "View Low Inventory" option shows all products with less than 5 items in stock.
- ********INSERT IMAGE**********
+ 5. The "View Products for Sale" option shows the manager the current items for sale in the Bamazon marketplace with a prompt to exit or return to the home screen.
+ ********INSERT IMAGE 6**********
+ 6. The "View Low Inventory" option shows all products with less than 5 items in stock.
+ ********INSERT IMAGE 7**********
  The user can then choose to add products to inventory, return home, or exit.
  7. The "Add to Inventory" option allows the user to add more items to inventory. The user is prompted for the ID and a quantity of the product they would like to re-stock.
- ********INSERT IMAGE**********
+ ********INSERT IMAGE 8**********
  They can then choose to add more items, return home, or exit.
  8. The "Add New Product" option allows the manager to create a new product to stock. The manager is prompted to insert a product name, price, and a quantity to stock. The user must also select department for the item. *(Note: managers cannot create departments. Only supervisors can do that with the bamazonSupervisor.js file)*
- ********INSERT IMAGE**********
+ ********INSERT IMAGE 9**********
 THe user can then choose to return to the home menu, create more products, or exit.
 9. "Exit" allows the user to exit the program.
 
@@ -57,11 +62,11 @@ THe user can then choose to return to the home menu, create more products, or ex
 # bamazonSupervisor.js
 1. In your command line terminal / bash, type "node bamazonSupervisor.js"
 2. A menu will appear asking the user to choose "View product sales by department", "Create new department", or exit.
-********INSERT IMAGE**********
+********INSERT IMAGE 10**********
 3. Choose an option by entering the number associated with the option, then press 'Enter'.
 4. The "View product sales by department" option brings ups a table showing a summary of each department's performance, and a returns the user to the main menu.
-********INSERT IMAGE**********
+********INSERT IMAGE 11**********
 5. The "Create new department" option allows the user to create a new department. The user will be prompted to input a department name and overhead costs.
 6. The user then sees a messaging stating that the department was created, and prompting the user to press enter to return to the main menu.
-********INSERT IMAGE**********
+********INSERT IMAGE 12**********
 
