@@ -14,7 +14,8 @@ Welcome to the Bamazon ReadMe file.
 3. You will likely need to update the  server connection information to match your own local server. The set up location is in each file in lines 7 through 11.
 4. In your command line, execute "npm install".
 5. Start your localhost database connection using MySQL, or any other SQL based database.
-6. You're ready to go!
+6. Use the schema.sql file to create the database. Copy the text within the file, and enter it into your favorite MySQL interface, then execute to set up the databse.
+7. You're ready to go!
 
 # Summary: 
 The three files allow the user to act as a customer making purchases, a manager that can monitor inventory and dd products, and a supervisor that can add departments, and look at the performance for each department.
