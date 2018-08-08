@@ -40,19 +40,21 @@ function getChoices() {
     connection.query("SELECT * FROM products", function (err, response) {
         if (err) throw err;
 
-        console.table(response);
+        var display = response.slice(0);
 
-       /* //display a list of the items with name, price, and quantity
-        for (var i = 0; i < response.length; i++) {
-            console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n');
-        };*/
+        console.table(display);
+
+        /* //display a list of the items with name, price, and quantity
+         for (var i = 0; i < response.length; i++) {
+             console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n');
+         };*/
 
         //prompt user for the item / quantity they would like to purchase
         inquirer.prompt([
             {
                 type: "input",
                 name: "itemChoice",
-                message: "Please type the ID of a product you would like to purchase.",
+                message: "Please type the ID of a product you would like to purchase, or push 'Control C' to exit.",
             },
             {
                 type: "input",
@@ -98,9 +100,9 @@ function checkStock(response, answers) {
             chosenItem.stock_quantity = parseFloat(chosenItem.stock_quantity) - parseFloat(answers.quantity);
             chosenItem.product_sales = parseFloat(chosenItem.product_sales) + total;
             console.log('You are purchasing ' + answers.quantity + ' ' + chosenItem.product_name + '.');
-            console.log('Your total is: $' +total);
+            console.log('Your total is: $' + total);
             updateProductTable(chosenItem);
-            
+
         } else {
             inquirer.prompt([
                 {
@@ -124,7 +126,7 @@ function updateProductTable(chosenItem) {
     connection.query(
         'UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?',
         [chosenItem.stock_quantity, chosenItem.product_sales, chosenItem.item_id],
-        function(err, response) {
+        function (err, response) {
             if (err) throw err;
             inquirer.prompt([
                 {
@@ -132,11 +134,11 @@ function updateProductTable(chosenItem) {
                     name: "continue",
                     message: "Thank you for your purchase. Would you like to look for more items? (Y/N)"
                 }
-            ]).then(function(answers) {
+            ]).then(function (answers) {
                 if (answers.continue == true) {
                     getChoices();
                 } else {
-                    connection.end(function(err) {
+                    connection.end(function (err) {
                         if (err) throw err;
                     });
                 }
