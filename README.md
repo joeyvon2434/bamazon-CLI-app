@@ -20,6 +20,9 @@ Welcome to the Bamazon ReadMe file.
 # Summary: 
 The three files allow the user to act as a customer making purchases, a manager that can monitor inventory and products, and a supervisor that can add departments, and look at the performance for each department.
 
+#Updates:
+The table formatting in command line has been updated with console.table for better presentation / organization. *(Note: The pictures in the instructions do not reflect the table changes.)*
+
 # bamazonCustomer.js
 1. In your command line terminal / bash, type "node bamazonCustomer.js"
 
