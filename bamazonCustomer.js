@@ -1,6 +1,6 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
-
+var cTable = require("console.table");
 //set up MySQL connection
 
 var connection = mysql.createConnection({
@@ -40,10 +40,12 @@ function getChoices() {
     connection.query("SELECT * FROM products", function (err, response) {
         if (err) throw err;
 
-        //display a list of the items with name, price, and quantity
+        console.table(response);
+
+       /* //display a list of the items with name, price, and quantity
         for (var i = 0; i < response.length; i++) {
             console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n');
-        };
+        };*/
 
         //prompt user for the item / quantity they would like to purchase
         inquirer.prompt([

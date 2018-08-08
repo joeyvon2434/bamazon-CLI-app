@@ -1,5 +1,6 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
+var cTable = require('console.table');
 
 //set up mysql connection
 
@@ -52,10 +53,13 @@ function viewDepartmentSales() {
         function (err, response) {
             if (err) throw err;
 
-            for (var i = 0; i < response.length; i++) {
+            /*for (var i = 0; i < response.length; i++) {
                 console.log("ID: " + response[i].department_id + " || Department: " + response[i].department_name + " || Overhead: $" + response[i].overhead_costs + " || Sales: $" + response[i].Sales + " || Profit: $" + (response[i].Sales - response[i].overhead_costs) + "\n");
 
-            }
+            }*/
+            calcualteProfit(response);
+            console.table(response);
+
             supervisorStart();
         });
 
@@ -105,6 +109,17 @@ function newDepartment() {
             }
         )
     })
+};
+
+//calculate profit function
+//////////////////////////////
+function calcualteProfit(response) {
+
+    for (var i = 0; i < response.length; i++) {
+        response[i].Profit = response[i].Sales - response[i].overhead_costs;
+    };
+
+    return response;
 };
 
 

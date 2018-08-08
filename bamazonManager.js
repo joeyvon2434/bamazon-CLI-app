@@ -1,5 +1,6 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
+var cTable = require("console.table");
 
 //set up MySQL connection
 
@@ -78,9 +79,11 @@ function viewInventory() {
     connection.query("SELECT * FROM products", function (err, response) {
         if (err) throw err;
         console.log('\n');
-        for (var i = 0; i < response.length; i++) {
+
+        console.table(response);
+        /*for (var i = 0; i < response.length; i++) {
             console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Price: $" + response[i].price + " || Current Stock: " + response[i].stock_quantity + '\n');
-        }
+        }*/
         inquirer.prompt([
             {
                 type: 'rawlist',
@@ -108,9 +111,10 @@ function lowInventory() {
         function (err, response) {
             if (err) throw err;
             console.log('\n');
-            for (var i = 0; i < response.length; i++) {
+            console.table(response);
+            /*for (var i = 0; i < response.length; i++) {
                 console.log("ID: " + response[i].item_id + " || Product: " + response[i].product_name + " || Current Stock: " + response[i].stock_quantity + '\n');
-            };
+            };*/
             inquirer.prompt([
                 {
                     type: 'rawlist',
